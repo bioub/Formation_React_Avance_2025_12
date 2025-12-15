@@ -22,7 +22,7 @@ Créer une nouvelle page `src/app/pages/pokemon-compare.jsx` contenant le JSX su
 </div>
 ```
 
-Les variables `pokemon1` et `pokemon2` doivent contenir les pokemon dont les ids sont `1` et `2`, utiliser le
+Les variables `pokemon1` et `pokemon2` doivent contenir les pokemon dont les ids sont `3` et `4`, utiliser le
 service `getPokemon` pour les récupérer.
 
 Créer la route dans `app.tsx`, l'URL peut etre par exemple `/pokemons/compare`
