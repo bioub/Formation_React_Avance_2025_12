@@ -1,8 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import './pokemon-card.css';
 import { formatDate, formatType } from '../helpers';
+import { useContext } from 'react';
+import { CompareContext } from '../helpers/compare-context';
 
 function PokemonCard({ pokemon }) {
+  const { idsToCompare, toggleId } = useContext(CompareContext);
   const navigate = useNavigate();
 
   function goToPokemon(id) {
@@ -26,8 +29,17 @@ function PokemonCard({ pokemon }) {
                 {type}
               </span>
             ))}
-            <button onClick={() => goToPokemon(pokemon.id ?? 0)}>Details</button>
-            <label><input type="checkbox" /> <span>Compare</span></label>
+            <button onClick={() => goToPokemon(pokemon.id ?? 0)}>
+              Details
+            </button>
+            <label>
+              <input
+                type="checkbox"
+                checked={idsToCompare.includes(pokemon.id)}
+                onChange={() => toggleId(pokemon.id)}
+              />{' '}
+              <span>Compare</span>
+            </label>
           </div>
         </div>
       </div>
