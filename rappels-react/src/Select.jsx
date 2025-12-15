@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import style from './Select.module.css';
 
 console.log(style);
@@ -9,15 +10,29 @@ console.log(style);
 //  selected: 'Select_selected__3dE5F'
 // }
 
-function Select() {
+function Select({ value, items, onColorChange }) {
+  const [isOpen, setIsOpen] = useState(true);
+
+  function handleClick() {
+    setIsOpen(!isOpen);
+  }
+
   return (
     <div className={style.Select}>
-      <div className={style.value}>Vert</div>
-      <div className={style.menu}>
-        <div className={style.option}>Rouge</div>
-        <div className={`${style.option} ${style.selected}`}>Vert</div>
-        <div className={style.option}>Bleu</div>
-      </div>
+      <div className={style.value} onClick={handleClick}>{value}</div>
+      {isOpen && (
+        <div className={style.menu}>
+          {items.map((item) => (
+            <div
+              key={item}
+              className={`${style.option} ${item === value ? style.selected : ''}`}
+              onClick={() => onColorChange(item)}
+            >
+              {item}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
