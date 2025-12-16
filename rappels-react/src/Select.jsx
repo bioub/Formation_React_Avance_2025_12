@@ -11,7 +11,7 @@ console.log(style);
 //  selected: 'Select_selected__3dE5F'
 // }
 
-function Select({ value, items, onValueChange, ref }) {
+function Select({ value, items, onValueChange, ref, renderItem }) {
   console.log('Render Select', { value, items });  
   const [isOpen, setIsOpen] = useState(false);
   const hostRef = useRef(null);
@@ -51,7 +51,7 @@ function Select({ value, items, onValueChange, ref }) {
               className={clsx(style.option, { [style.selected]: item === value })}
               onClick={() => handleOptionClick(item)}
             >
-              {item}
+              {renderItem ? renderItem(item) : item}
             </div>
           ))}
         </div>

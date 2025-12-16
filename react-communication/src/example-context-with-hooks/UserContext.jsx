@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 export const UserContext = createContext({
   name: 'Missing UserProvider',
@@ -14,4 +14,8 @@ export function UserProvider({ children }) {
       {children}
     </UserContext.Provider>
   );
+}
+
+export function useUser() {
+  return useContext(UserContext);
 }

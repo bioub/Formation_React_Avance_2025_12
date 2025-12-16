@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 class Profile extends Component {
   render() {
+    
     const { user, onUserUpdate } = this.props;
     return (
       <div className="Profile">

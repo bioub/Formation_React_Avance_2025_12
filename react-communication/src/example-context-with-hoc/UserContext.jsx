@@ -22,8 +22,12 @@ export class UserProvider extends Component {
   }
 }
 
-export const withUser = (Component) => (props) => (
-  <UserContext.Consumer>
-    {(context) => <Component {...props} {...context} />}
-  </UserContext.Consumer>
-);
+export function withUser(Component) {
+  return function (props) {
+    return (
+      <UserContext.Consumer>
+        {(context) => <Component {...props} {...context} />}
+      </UserContext.Consumer>
+    );
+  };
+}

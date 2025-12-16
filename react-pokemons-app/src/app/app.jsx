@@ -8,33 +8,36 @@ import Login from './pages/login';
 import PrivateRoute from './private-route';
 import PokemonCompare from './pages/pokemon-compare';
 import { CompareProvider } from './helpers/compare-context';
+import { MyErrorBoundary } from './components/MyErrorBoundary';
 
 function App() {
   return (
     <BrowserRouter>
-      <CompareProvider>
-        <div>
-          <nav>
-            <div className="nav-wrapper teal">
-              <Link to="/" className="brand-logo center">
-                Pokédex
-              </Link>
-            </div>
-          </nav>
-          <Routes>
-            <Route index path="/" element={<PokemonsList />} />
-            <Route path="/login" element={<Login />} />
-            <Route element={<PrivateRoute />}>
-              <Route path="/pokemons" element={<PokemonsList />} />
-              <Route path="/pokemon/add" element={<PokemonAdd />} />
-              <Route path="/pokemon/compare" element={<PokemonCompare />} />
-              <Route path="/pokemons/edit/:id" element={<PokemonEdit />} />
-              <Route path="/pokemons/:id" element={<PokemonsDetail />} />
-            </Route>
-            <Route element={<PageNotFound />} />
-          </Routes>
-        </div>
-      </CompareProvider>
+      <div>
+        <nav>
+          <div className="nav-wrapper teal">
+            <Link to="/" className="brand-logo center">
+              Pokédex
+            </Link>
+          </div>
+        </nav>
+        <MyErrorBoundary>
+          <CompareProvider>
+            <Routes>
+              <Route index path="/" element={<PokemonsList />} />
+              <Route path="/login" element={<Login />} />
+              <Route element={<PrivateRoute />}>
+                <Route path="/pokemons" element={<PokemonsList />} />
+                <Route path="/pokemon/add" element={<PokemonAdd />} />
+                <Route path="/pokemon/compare" element={<PokemonCompare />} />
+                <Route path="/pokemons/edit/:id" element={<PokemonEdit />} />
+                <Route path="/pokemons/:id" element={<PokemonsDetail />} />
+              </Route>
+              <Route element={<PageNotFound />} />
+            </Routes>
+          </CompareProvider>
+        </MyErrorBoundary>
+      </div>
     </BrowserRouter>
   );
 }

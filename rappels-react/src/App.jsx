@@ -20,7 +20,7 @@ function App() {
 
   return (
     <>
-      <Select value={color} items={['Rouge', 'Vert', 'Bleu']} onValueChange={handleColorChange} />
+      <Select value={color} items={['Rouge', 'Vert', 'Bleu']} onValueChange={handleColorChange} renderItem={(item) => <i>{item}</i>} />
       <Select value={name} items={['Romain', 'Alice', 'Bob']} onValueChange={handleNameChange} ref={selectNameRef} />
       <div className='menu'>
         <a href="#">Accueil</a>
