@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import style from './Select.module.css';
 import clsx from 'clsx';
 
@@ -11,18 +11,25 @@ console.log(style);
 //  selected: 'Select_selected__3dE5F'
 // }
 
-function Select({ value, items, onValueChange }) {
+function Select({ value, items, onValueChange, ref }) {
   console.log('Render Select', { value, items });  
   const [isOpen, setIsOpen] = useState(false);
   const hostRef = useRef(null);
 
   useEffect(() => {
     window.addEventListener('click', (event) => {
-      if (!hostRef.current?.contains(event.target)) {
+      if (!hostRef.current?.contains(event.target) && !event.target.classList.contains(style.option)) {
         setIsOpen(false)
       }
     });
   }, []);
+
+  useImperativeHandle(ref, () => ({
+    openMenu() {
+      console.log('Open menu');
+      setIsOpen(true);
+    }
+  }), []);
 
   function handleClick() {
     setIsOpen(!isOpen);
