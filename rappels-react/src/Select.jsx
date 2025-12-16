@@ -1,4 +1,4 @@
-import { useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { memo, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import style from './Select.module.css';
 import clsx from 'clsx';
 
@@ -11,17 +11,42 @@ console.log(style);
 //  selected: 'Select_selected__3dE5F'
 // }
 
+// function useListener(element, eventType, listener) {
+//   const listenerRef = useRef(listener);
+
+//   useEffect(() => {
+//     const listenerRefCurrent = listenerRef.current;
+//     if (!element) return;
+//     element.addEventListener(eventType, listenerRefCurrent);
+
+//     return () => {
+//       element.removeEventListener(eventType, listenerRefCurrent);
+//     };
+//   }, [element, eventType]);
+// }
+
 function Select({ value, items, onValueChange, ref, renderItem }) {
   console.log('Render Select', { value, items });  
   const [isOpen, setIsOpen] = useState(false);
   const hostRef = useRef(null);
 
+  // useListener(window, 'click', (event) => {
+  //   if (!hostRef.current?.contains(event.target) && !event.target.classList.contains(style.option)) {
+  //     setIsOpen(false)
+  //   }
+  // });
+
   useEffect(() => {
-    window.addEventListener('click', (event) => {
+    const listener = (event) => {
       if (!hostRef.current?.contains(event.target) && !event.target.classList.contains(style.option)) {
         setIsOpen(false)
       }
-    });
+    };
+    window.addEventListener('click', listener);
+
+    return () => {
+      window.removeEventListener('click', listener);
+    };
   }, []);
 
   useImperativeHandle(ref, () => ({
@@ -60,4 +85,6 @@ function Select({ value, items, onValueChange, ref, renderItem }) {
   );
 }
 
-export default Select;
+export default memo(Select, (prevProps, nextProps) => {
+  return prevProps.value === nextProps.value && prevProps.items === nextProps.items;
+});
