@@ -5,14 +5,27 @@ import { Link, Navigate } from 'react-router-dom';
 import PokemonSearch from '../components/pokemon-search';
 import { isAuthenticated } from '../services/authentication-service';
 import { CompareContext } from '../helpers/compare-context';
+import List from '../components/list';
+
+function usePokemons() {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setLoading(true);
+    getPokemons()
+      .then((data) => setData(data))
+      .catch((err) => setError(err))
+      .finally(() => setLoading(false));
+  }, []);
+
+  return { data, loading, error };
+}
 
 function PokemonList() {
   const { idsToCompare } = useContext(CompareContext);
-  const [pokemons, setPokemons] = useState([]);
-
-  useEffect(() => {
-    getPokemons().then((pokemons) => setPokemons(pokemons));
-  }, []);
+  const { data: pokemons, loading, error } = usePokemons();
 
   if (!isAuthenticated) {
     return <Navigate to={{ pathname: '/login' }} />;
@@ -24,9 +37,16 @@ function PokemonList() {
       <div className="container">
         <div className="row">
           <PokemonSearch />
-          {pokemons.map((pokemon) => (
-            <PokemonCard key={pokemon.id} pokemon={pokemon} />
-          ))}
+          {loading && <p>Loading...</p>}
+          {error && <p>Error: {error.message}</p>}
+          {!loading && !error && (
+            <List
+              items={pokemons}
+              renderItem={(pokemon) => (
+                <PokemonCard key={pokemon.id} pokemon={pokemon} />
+              )}
+            />
+          )}
         </div>
       </div>
       <Link
