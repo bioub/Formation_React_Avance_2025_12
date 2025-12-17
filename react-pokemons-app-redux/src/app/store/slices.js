@@ -21,9 +21,12 @@ const pokemonsSlice = createSlice({
       state.data = action.payload;
       state.loading = false;
     },
+    setFilter(state, action) {
+      state.filter = action.payload;
+    }
   },
 });
 
-export const { fetchPokemons, fetchPokemonsSuccess } = pokemonsSlice.actions;
+export const { fetchPokemons, fetchPokemonsSuccess, setFilter } = pokemonsSlice.actions;
 export const pokemonsReducer = pokemonsSlice.reducer;
 
