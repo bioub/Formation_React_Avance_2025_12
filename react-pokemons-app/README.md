@@ -72,3 +72,9 @@ Créer un hook usePokemons() qui retounera un objet avec 3 clés :
 - error (string/null)
 
 Ce hook doit remplacer useState et useEffect dans `src/app/pages/pokemon-list.jsx`
+
+## Exercice 5 : Tests
+
+Ecrire les tests de `src/app/helpers/index.js` (`formatType` et `formatDate`)
+
+Compléter le test `src/app/components/PokemonCardDetails.test.jsx` pour vérifier que le nom du pokemon s'affiche
