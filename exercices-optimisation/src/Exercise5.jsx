@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { use, useEffect, useMemo, useState } from 'react';
 
 function isPrime(num) {
   for (let i = 2; i < num; i++) {
@@ -28,6 +28,9 @@ function Exercise5() {
     }, 1000);
     return () => clearInterval(interval);
   }, []);
+
+  // const primeNumber = findClosestLowestPrime(value);
+  const primeNumber = useMemo(() => findClosestLowestPrime(value), [value]);
 
   const render = (
     <div className="Exercise5">
@@ -67,7 +70,7 @@ function Exercise5() {
           value={value}
           onChange={(e) => setValue(e.target.value)}
         />
-        the closest lowest prime to {value} is {findClosestLowestPrime(value)}
+        the closest lowest prime to {value} is {primeNumber}
         <p>It is {clock.toLocaleTimeString()}</p>
       </div>
     </div>

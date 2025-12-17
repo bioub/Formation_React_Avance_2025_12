@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, memo } from 'react';
 
 function Exercise4() {
   const [value, setValue] = useState('');
