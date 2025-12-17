@@ -3,13 +3,18 @@ import './App.css'
 import Select from './Select'
 import TodoList from './TodoList';
 import Clock from './Clock';
+import Hello from './Hello';
 // import { read, utils } from 'xlsx';
 
-const colors = ['Rouge', 'Vert', 'Bleu'];
+const _colors = ['Rouge', 'Vert', 'Bleu'];
 
 function App() {
   console.log('Render App');
   const [now, setNow] = useState(new Date());
+
+  useEffect(() => {
+    document.title = `Il est ${now.toLocaleTimeString()}`;
+  }, []);
   
     useEffect(() => {
       const interval = setInterval(() => {
@@ -60,9 +65,10 @@ function App() {
 
   return (
     <>
-      <Select value={color} items={couleurs} onValueChange={handleColorChange} />
-      {/* <Select value={color} items={['Rouge', 'Vert', 'Bleu']} onValueChange={handleColorChange} renderItem={(item) => <i>{item}</i>} /> */}
-      {/* <Select value={name} items={['Romain', 'Alice', 'Bob']} onValueChange={handleNameChange} ref={selectNameRef} /> */}
+      <Hello name={123}  />
+      {/* <Select value={color} items={couleurs} onValueChange={handleColorChange} />
+      <Select value={color} items={['Rouge', 'Vert', 'Bleu']} onValueChange={handleColorChange} renderItem={(item) => <i>{item}</i>} />
+      <Select value={name} items={['Romain', 'Alice', 'Bob']} onValueChange={handleNameChange} ref={selectNameRef} /> */}
       <div className='menu'>
         <a href="#">Accueil</a>
         <a href="#">À propos</a>
