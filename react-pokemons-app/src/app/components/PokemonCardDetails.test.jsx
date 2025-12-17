@@ -1,5 +1,5 @@
-import { render } from '@testing-library/react';
-import { test } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import { expect, test } from 'vitest';
 import PokemonCardDetail from './PokemonCardDetail';
 import { MemoryRouter } from 'react-router-dom';
 
@@ -22,6 +22,9 @@ test('PokemonCardDetails renders correctly', () => {
       <PokemonCardDetail pokemon={pokemon} />
     </MemoryRouter>
   );
+
+  const nameElement = screen.queryAllByText('Bulbasaur');
+  expect(nameElement[0]).toBeInTheDocument();
 });
 
 //
